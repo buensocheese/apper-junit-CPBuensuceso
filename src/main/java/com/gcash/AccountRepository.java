@@ -31,6 +31,7 @@ public class AccountRepository {
         for (Account account : accounts) {
             if (account.id().equals(id)) {
                 accounts.remove(account);
+                return;
             }
         }
     }
