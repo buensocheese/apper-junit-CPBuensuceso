@@ -1,1 +1,10 @@
-1.
+1. Unit Testing: Testing individual components or units of code to ensure their correct functionality.
+2. Integration Testing: Testing the interaction between different modules or components to verify their seamless integration
+3. System Testing: Testing the entire software system to ensure its compliance with requirements and expected behavior.
+4. Acceptance Testing: Testing the software system's compliance with user requirements and business goals before deployment.
+5. TRUE
+6. JUnit 5
+7. assertEquals(expected, actual): Compares the expected and actual values to check if they are equal.
+8. assertNull(object): Checks that the specified object is null.
+9. assertTrue(condition): Verifies that the specified condition evaluates to true
+10. assertFalse(condition): Verifies that the specified condition evaluates to false.
