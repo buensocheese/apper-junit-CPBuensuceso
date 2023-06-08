@@ -1,20 +1,38 @@
 package com.gcash;
 
-public class BalanceService {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-    public Double getBalance(String id) {
-        return null;
+public class AccountRepository {
+    private final List<Account> accounts = new ArrayList<>();
+
+    public String createAccount(String name, Double initialBalance) {
+        String id = UUID.randomUUID().toString();
+        Account account = new Account(id, name, initialBalance);
+
+        accounts.add(account);
+
+        return id;
     }
 
-    public void debit(String id, Double amount) {
-
+    public Account getAccount(String id) {
+        return accounts
+                .stream()
+                .filter(account -> id.equals(account.id()))
+                .findFirst()
+                .orElse(null);
     }
 
-    public void credit(String id, Double amount) {
-
+    public void deleteAccount(String id) {
+        accounts
+                .stream()
+                .filter(account -> id.equals(account.id()))
+                .findFirst()
+                .ifPresent(accounts::remove);
     }
 
-    public void transfer(String from, String to, Double amount) {
-
+    public Integer getNumberOfAccounts() {
+        return accounts.size();
     }
 }
