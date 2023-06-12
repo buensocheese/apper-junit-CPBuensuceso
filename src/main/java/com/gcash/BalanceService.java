@@ -1,38 +1,32 @@
 package com.gcash;
+public class BalanceService {
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-public class AccountRepository {
-    private final List<Account> accounts = new ArrayList<>();
-
-    public String createAccount(String name, Double initialBalance) {
-        String id = UUID.randomUUID().toString();
-        Account account = new Account(id, name, initialBalance);
-
-        accounts.add(account);
-
-        return id;
+    public void debit(double currentBalance, double amount) throws InsufficientBalanceException {
+        if (currentBalance >= amount) {
+            double newBalance = currentBalance - amount;
+            // Update the balance in the account
+        } else {
+            throw new InsufficientBalanceException("Insufficient balance");
+        }
     }
 
-    public Account getAccount(String id) {
-        return accounts
-                .stream()
-                .filter(account -> id.equals(account.id()))
-                .findFirst()
-                .orElse(null);
+    public void credit(double currentBalance, double amount) {
+        double newBalance = currentBalance + amount;
+        // Update the balance in the account
     }
 
-    public void deleteAccount(String id) {
-        accounts
-                .stream()
-                .filter(account -> id.equals(account.id()))
-                .findFirst()
-                .ifPresent(accounts::remove);
+    public void transfer(double sourceBalance, double destinationBalance, double amount) throws InsufficientBalanceException {
+        if (sourceBalance >= amount) {
+            debit(sourceBalance, amount);
+            credit(destinationBalance, amount);
+        } else {
+            throw new InsufficientBalanceException("Insufficient balance in the source account");
+        }
     }
+}
 
-    public Integer getNumberOfAccounts() {
-        return accounts.size();
+class InsufficientBalanceException extends Exception {
+    public InsufficientBalanceException(String message) {
+        super(message);
     }
 }
